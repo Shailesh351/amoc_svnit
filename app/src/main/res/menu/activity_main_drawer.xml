@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Profile" />
+            android:title="Home" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_madical_history"
             android:icon="@drawable/ic_medical_history"
-            android:title="Profile" />
+            android:title="Check Medical History" />
         <item
             android:id="@+id/nav_log_out"
             android:title="Log out" />

@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -17,8 +18,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,7 +39,6 @@ public class loginAsPatient extends AppCompatActivity {
     String admNoString,passwordString;
     boolean isDataValid = false;
     SaveSharedPreference saveSharedPreference;
-    Context context;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -49,6 +47,7 @@ public class loginAsPatient extends AppCompatActivity {
         setContentView(R.layout.activity_login_as_patient);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         saveSharedPreference = new SaveSharedPreference();
+
 
         admNo = (TextInputEditText) findViewById(R.id.adm_no_login);
         password = (TextInputEditText) findViewById(R.id.password_login);
@@ -132,10 +131,6 @@ public class loginAsPatient extends AppCompatActivity {
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(passwordString)) {
             password.setError("This field is required");
-            validateData = false;
-            focusView = password;
-        }else if (!isPasswordValid(passwordString)) {
-            password.setError("This password  is too short");
             validateData = false;
             focusView = password;
         }
@@ -247,7 +242,7 @@ public class loginAsPatient extends AppCompatActivity {
             Boolean loginCheck = result.equals("Login Sucessful");
             if(loginCheck)
             {
-                saveSharedPreference.setUserName(context,admNoString);
+                saveSharedPreference.setUserName(context, admNoString);
 
                 Intent intent = new Intent(context,HomeScreenPatient.class);
                // intent.putExtra("admissionNo", admNoString);
