@@ -31,34 +31,50 @@ import java.net.URLEncoder;
 public class FragmentProfile extends Libs {
 
     public static String admNoImportedString = null;
-    TextView admNoShow, nameShow, contactNoShow, emailShow, genderShow, dobShow, bloodGroupShow, heightShow, weightShow, metabolicDisorderShow;
+    TextView admNoShow, nameShow, contactNoShow, emailShow, genderShow, dobShow, bloodGroupShow, heightShow, weightShow, metabolicDisorderShow, ageShow;
+    TextView admNoTag, nameTag, contactTag, emailTag, genderTag, dobTag, bloodGroupTag, heightTag, weightTag, metabolicDisorderTag, ageTag;
+    TextView profileMessage;
     JSONObject jsonObject;
     JSONArray jsonArray;
     String JSON_STRING = "";
-    View profileFragmentLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        //admNoImportedString = getArguments().getString("AdmissionNo");
-        //Message.message(getContext(), admNoImportedString);
         return inflater.inflate(R.layout.profile_fragment, container, false);
     }
 
     public void setAdmissionNo(String AdmNo) {
         admNoImportedString = AdmNo;
-        //Message.message(getContext(), admNoImportedString);
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //profileFragmentLayout = inflater.inflate(R.layout.profile_fragment, null);
+        admNoTag = (TextView) getActivity().findViewById(R.id.admNoTag);
+        nameTag = (TextView) getActivity().findViewById(R.id.nameTag);
+        contactTag = (TextView) getActivity().findViewById(R.id.contactTag);
+        emailTag = (TextView) getActivity().findViewById(R.id.emailTag);
+        genderTag = (TextView) getActivity().findViewById(R.id.genderTag);
+        dobTag = (TextView) getActivity().findViewById(R.id.dobTag);
+        bloodGroupTag = (TextView) getActivity().findViewById(R.id.bloodGroupTag);
+        heightTag = (TextView) getActivity().findViewById(R.id.heightTag);
+        weightTag = (TextView) getActivity().findViewById(R.id.weightTag);
+        metabolicDisorderTag = (TextView) getActivity().findViewById(R.id.metabolicDisorderTag);
+        admNoTag.setVisibility(View.INVISIBLE);
+        nameTag.setVisibility(View.INVISIBLE);
+        contactTag.setVisibility(View.INVISIBLE);
+        emailTag.setVisibility(View.INVISIBLE);
+        genderTag.setVisibility(View.INVISIBLE);
+        dobTag.setVisibility(View.INVISIBLE);
+        bloodGroupTag.setVisibility(View.INVISIBLE);
+        heightTag.setVisibility(View.INVISIBLE);
+        weightTag.setVisibility(View.INVISIBLE);
+        metabolicDisorderTag.setVisibility(View.INVISIBLE);
 
+        profileMessage = (TextView) getActivity().findViewById(R.id.profileMessage);
+        profileMessage.setVisibility(View.INVISIBLE);
 
         admNoShow = (TextView) getActivity().findViewById(R.id.admNoShow);
         nameShow = (TextView) getActivity().findViewById(R.id.nameShow);
@@ -161,17 +177,41 @@ public class FragmentProfile extends Libs {
         @Override
         protected void onPostExecute(String[] result) {
             String[] details = {"", "", "", "", "", "", "", "", "", "", ""};
+            int age = 0;
             details = result;
-            admNoShow.setText(": " + details[0]);
-            nameShow.setText(": " + details[1]);
-            contactNoShow.setText(": " + details[3]);
-            emailShow.setText(": " + details[4]);
-            genderShow.setText(": " + details[5]);
-            dobShow.setText(": " + details[6]);
-            bloodGroupShow.setText(": " + details[7]);
-            heightShow.setText(": " + details[8]);
-            weightShow.setText(": " + details[9]);
-            metabolicDisorderShow.setText(": " + details[10]);
+            if (details != null) {
+                admNoTag.setVisibility(View.VISIBLE);
+                nameTag.setVisibility(View.VISIBLE);
+                contactTag.setVisibility(View.VISIBLE);
+                emailTag.setVisibility(View.VISIBLE);
+                genderTag.setVisibility(View.VISIBLE);
+                dobTag.setVisibility(View.VISIBLE);
+                bloodGroupTag.setVisibility(View.VISIBLE);
+                heightTag.setVisibility(View.VISIBLE);
+                weightTag.setVisibility(View.VISIBLE);
+                metabolicDisorderTag.setVisibility(View.VISIBLE);
+
+
+                admNoShow.setText(": " + details[0]);
+                nameShow.setText(": " + details[1]);
+                contactNoShow.setText(": " + details[3]);
+                emailShow.setText(": " + details[4]);
+                genderShow.setText(": " + details[5]);
+                dobShow.setText(": " + details[6]);
+                bloodGroupShow.setText(": " + details[7]);
+                heightShow.setText(": " + details[8]);
+                weightShow.setText(": " + details[9]);
+                metabolicDisorderShow.setText(": " + details[10]);
+
+
+                profileMessage.setVisibility(View.INVISIBLE);
+
+            } else {
+                profileMessage.setVisibility(View.VISIBLE);
+                profileMessage.setText("No intenet access");
+
+            }
+
         }
     }
 
